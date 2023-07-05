@@ -1,0 +1,295 @@
+/*custom font*/
+/*@import url(https://fonts.googleapis.com/css?family=Montserrat);*/
+
+/*basic reset*/ 
+* {margin: 0; padding: 0;}
+
+html {
+	height: 100%;
+	/*background: 
+		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));*/
+        /*background-image: url(livreur-presse-papiers.jpg);*/
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body {
+	box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;  
+    font-family: sans-serif-apple-system,BlinkMacSystemFont,Avenir Next,Avenir,Segoe UI,Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol;
+    text-transform: capitalize; 
+	overflow-y: hidden;
+}
+.bg{
+	background-image: url(../img/livreur-presse-papiers.jpg);
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+	filter: blur(5px);
+	height: 100vh;
+	z-index: 0;
+}
+/*form styles*/
+#msform {
+	z-index: 2;
+	width: 50rem;
+	margin: 5rem auto;
+	text-align: center;
+	position: relative;
+	bottom: 47rem;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 1rem;
+	/*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
+    box-shadow: 2rem 3rem 5rem rgba(132,139,200, .3);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 60%;
+    margin: 0 20%;
+	z-index: 10;
+
+	/*display: none;*/
+	
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+#msform .second-field{
+    margin: 0 -18%;
+	min-width: 70rem;
+}
+#msform .second-field .result-field{
+	width: 100%;
+	height: 15rem;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+#msform .second-field .result-field .row{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+   	width: 100%;
+	/*overflow-x: scroll;
+	overflow-y: scroll;*/
+}
+#msform .second-field .result-field .row label{
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+#msform .third-field{
+    margin: 0 3%;
+}
+#msform fieldset .container{
+    display: grid;
+    /*grid-template-columns: 5rem 5rem 5rem 5rem 5rem 5rem 5rem 5rem 5rem 5rem;*/
+    gap: .1rem;
+}
+#msform fieldset .container-line{
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    gap: .3rem;
+}
+#msform fieldset .btr{
+    width: 100%;
+}
+#msform fieldset .special-input{
+    width: 8.7rem; 
+	font-weight: bold;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	margin: 10px 5px;
+    font-size: .9rem;
+}
+#msform fieldset .cont{
+	height:80vh;
+	padding:1rem;
+	display:grid;
+	grid-template-columns: auto 18rem;
+	gap:2rem;
+	margin-top:5rem;
+}
+#msform fieldset .next-arrow{
+	text-decoration: none;
+}
+#msform fieldset .next-arrow span{
+	font-size: 1.7rem;
+	color: #7380ec;
+	transition: color .3s ease;
+}
+#msform fieldset .next-arrow span:hover{
+	font-size: 1.7rem;
+	color: #000;
+}
+#msform fieldset .wrap-btn{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+#msform fieldset .special-input:hover{
+   border: none;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#msform input {
+	padding: 15px;
+	border: 1px solid #BEBEBE;
+	border-radius: .5rem;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	/*font-family: montserrat;*/
+	color: #2C3E50;
+	font-size: 1rem;
+}
+#msform input:hover,#msform input:active,#msform input:focus{
+    border: 1px solid #7380ec;
+}
+/*buttons*/
+#msform .action-button {
+	width: 15%;
+	background: red;
+	font-weight: bold;
+	color: white;
+	border: 1px solid #fff;
+	border-radius: 1rem;
+	cursor: pointer;
+	padding: .8rem 2rem;
+	margin: 10px 5px;
+    text-decoration: none;
+    font-size: 1rem;
+	text-transform: capitalize;
+}
+#msform .action-button-moyn{
+	width: 30%;
+}
+#msform .action-button:hover {
+	background: #fff;
+	color: red;
+	border: 1px solid #fff;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	/*box-shadow: 0 0 0 2px white, 0 0 0 3px #7380ec;*/
+    border: 1px solid #8692f8;
+}
+/*headings*/
+.fs-title {
+	font-size: 1rem;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 1rem;
+	color: #666;
+	margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+	margin-bottom: 2rem;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+}
+#progressbar li {
+	list-style-type: none;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: .8rem;
+	width: 50%;
+	/*width: 33.33%;*/
+    /*width: 25%;*/
+	float: left;
+	position: relative;
+}
+#progressbar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 2rem;
+    height: 2rem;
+	line-height: 1.9rem;
+	display: block;
+	font-size: 1rem;
+	color: #333;
+	background: white;
+	border-radius: 100%;
+	margin: 0 auto .5rem auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: white;
+	position: absolute;
+	left: -50%;
+	top: 15px;
+	z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+	background: red;
+	color: white;
+}
+
+nav{
+	width: 100%;
+	height: 4.5rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: transparent;
+}
+nav .cnt img{
+	padding: .5rem;
+	width: 5rem;
+}
+.loader-container{
+	position: absolute;
+	top: 5rem;
+	left: 22rem;
+	z-index: -10;
+}
+.loader-container h1{
+	font-size: 2.5rem;
+	color: #fff;
+	letter-spacing: .5rem;
+	margin-left: -6rem;
+}
+/********loader*********/
+.loader{
+	border: 16px solid #fefefe;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	border-top: 16px solid #3498db;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}

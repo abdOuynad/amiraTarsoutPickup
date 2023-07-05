@@ -1,0 +1,28 @@
+$(document).ready(()=>{
+   //
+   $('#msform').submit((event)=>{
+     //
+     event.preventDefault()
+     var data = {
+       //
+       v:$('#vehicules').val(),
+       c:$('#cout').val()
+       //
+       }
+       //
+       $.ajax({
+         //
+         type:'POST',
+         url:'',
+         data:data,
+         success:function(response){
+         document.write(response);
+           }
+         //
+        })
+       //
+       console.log(data)
+     //
+    })
+   //
+})

@@ -1,0 +1,4 @@
+function plus(){
+   $('#resultShow').hide()
+   //
+}
