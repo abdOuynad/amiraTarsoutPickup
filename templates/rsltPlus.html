@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="{{url_for('static',filename='js/tools.js')}}"></script>
     <title>Document</title>
 </head>
 <body>
@@ -40,8 +41,12 @@
       <input type="button" name="next" class="next action-button-suivant" value="suivant" />
     </fieldset>
     -->
+    <div class="loader-container">
+        <h1>please wait</h1>
+        <div class="loader"></div>
+    </div>
     <!--************** form 2 *************-->
-    <fieldset class="second-field">
+    <fieldset class="second-field" id="resultShow">
       <h2 class="fs-title">résultat</h2>
       <h3 class="fs-subtitle"></h3>
       <div class="result-field">
@@ -59,6 +64,7 @@
           <!--<a href="/pickup/add" class="action-button">ajouter</a>-->
           <!--<a href="#" class="action-button">annuler</a>-->
           <a href="/pickup" class="action-button">refrecher</a>
+            <a href="/pickup/visual" onclick="plus()" class="action-button">Visualisation</a>
           <!--
           <a type="button" name="next" class="next-arrow" value="Next" href="result.html"><span class="material-symbols-outlined">
           arrow_forward

@@ -12,6 +12,7 @@ import random
 import time
 import concurrent.futures
 import pandas as pd
+import folium
 from geopy.distance import geodesic
 import math
 
@@ -677,6 +678,15 @@ class pickup :
       self.pop_ameliori[index].append(stat[1])
 
   #
+  def stationSchow(self):
+    #
+    data = pd.read_excel('../amiraTafsoutPickup/static/data/Stations.xlsx')
+    #df = pd.DataFrame(data)
+    #data = df.dropna()
+    #list(zip(data['Latitude'],data['Longitude'],data['Stations ']))
+    sh = [(x[0],x[1],'gray','glyphicon glyphicon-pushpin')for x in list(zip(data['Latitude'],data['Longitude']))]
+    return sh
+
   def tokanization(self):
     #
     #
@@ -726,6 +736,45 @@ class pickup :
     self.N.append(self.N[-1]+1)
 
   #
+  def setupVisualisation(self):
+      colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'beige', 'darkblue', 'darkgreen',
+                'cadetblue', 'darkpurple', 'white', 'pink', 'lightblue', 'lightgreen', 'black', 'lightgray']
+      popCrd = []
+      station = self.stationSchow()
+      for index, cluster in enumerate(self.pop_ameliori):
+          popCrd += [(self.coordonne[x][0], self.coordonne[x][1], colors[index], '') for x in cluster if
+                     isinstance(x, int) == True]
+      #print(popCrd)
+      #print(station)
+      popCrd += station
+      #print(popCrd)
+      return popCrd
+  #
+  def visualisation(self,popCrd):
+      #
+      map = folium.Map(location=[36.748161, 3.2935],
+                       zoom_start=3, control_scale=True)
+      #
+      map.get_root().html.add_child(folium.Element("""
+      <a href="/pickup" ><button>refrecher</button></a>
+      """))
+      #
+      for index, coord in enumerate(popCrd):
+          #
+          iframe = folium.IFrame('the cluster nb')
+          #
+          popup = folium.Popup(iframe, min_width=300, max_width=300)
+          #
+          popup = folium.Popup(iframe, min_width=300, max_width=300)
+          #
+          icon_color = coord[2]
+          #
+          folium.Marker(location=[coord[0], coord[1]],
+                        popup=popup,
+                        icon=folium.Icon(color=icon_color, icon=coord[3])).add_to(map)
+          #
+      map.save('../amiraTafsoutPickup/templates/cluster.html')
+  #
 
 if __name__ == '__main__':
   #
@@ -756,9 +805,10 @@ if __name__ == '__main__':
 
   #
   pick.station()
+  pick.setupVisualisation()
   #[print('clustering len',len(x)) for x in pick.Clustering]
   #[print('pop len',len(x)) for x in pick.pop_ameliori]
-  [print('Station',x[-1]) for x in pick.pop_ameliori]
+  '''[print('Station',x[-1]) for x in pick.pop_ameliori]
   print('Dynamic')
   #
   pick.dynamiClient()
@@ -782,4 +832,4 @@ if __name__ == '__main__':
   #
   pick.station()
   #[print('pop len',len(x)) for x in pick.pop_ameliori]
-  [print('Station',x[-1]) for x in pick.pop_ameliori]
+  [print('Station',x[-1]) for x in pick.pop_ameliori]'''

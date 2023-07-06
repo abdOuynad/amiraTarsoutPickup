@@ -1,4 +1,6 @@
 from flask import Blueprint,render_template,request
+import os
+import time
 #
 from app.pfe_classe import pickup
 #
@@ -22,6 +24,10 @@ def index():
         vehicule = int(request.form['v'])
         cout = request.form['c']
         #
+        path = '../amiraTafsoutPickup/templates/cluster.html'
+        if (os.path.exists(path)):
+            #
+            os.remove(path)
         ######### tlbo clarck right #######
         #
         pick = pickup(vehicule)
@@ -47,6 +53,7 @@ def index():
         #
         pick.station()
         print(pick.pop_ameliori)
+        pick.visualisation(pick.setupVisualisation())
         #
         return render_template('rslt.html',best_sol = pick.pop_ameliori)
     else:
@@ -58,6 +65,11 @@ def addClient():
     global pick
     #
     if pick is not None:
+        #
+        path = '../amiraTafsoutPickup/templates/cluster.html'
+        if(os.path.exists(path)):
+            #
+            os.remove(path)
         #
         pick.dynamiClient()
         pick.pop_ameliori = []
@@ -78,10 +90,23 @@ def addClient():
 
         #
         pick.station()
+        pick.visualisation(pick.setupVisualisation())
         # [print('pop len',len(x)) for x in pick.pop_ameliori]
         [print('Station', x[-1]) for x in pick.pop_ameliori]
         #
         return render_template('rsltPlus.html',best_sol = pick.pop_ameliori)
     #
     return render_template('index.html')
+    #
+@pickup_blueprint.route('/visual')
+def show():
+    #
+    path = '../amiraTafsoutPickup/templates/cluster.html'
+    while(True):
+        #
+        print(os.path.exists(path))
+        if(os.path.exists(path)):
+            return render_template('cluster.html')
+        #
+        time.sleep(1)
     #
