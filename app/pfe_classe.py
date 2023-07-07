@@ -713,6 +713,13 @@ class pickup :
     init_dis=list(zip(list(map(lambda x:float(str(geodesic(self.init,x)).strip('km')),self.coordonne)),self.clients))
     return init_dis
   #
+  def deleteClient(self,client):
+      if(self.D[client]):
+          self.D.pop(client)
+          [x.pop(client) for x in self.D ]
+          [x.pop(client) for x in self.Clustering if client in x ]
+          self.N.pop(client)
+  #
   def insertClient(self,crd):
     #
     d=[0]
@@ -735,7 +742,7 @@ class pickup :
     data = df.dropna()
     #crd = list(map(lambda x:self.insertClient(x),list(zip(data['Latitude'],data['Longitude']))))
     crd = list(map(self.insertClient,list(zip(data['Latitude'],data['Longitude']))))
-    self.N.append(self.N[-1]+1)
+    self.N.append(len(self.N[-1])+1)
 
   #
   def setupVisualisation(self):
