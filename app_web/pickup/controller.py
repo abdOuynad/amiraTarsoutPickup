@@ -51,9 +51,10 @@ def index():
             # print('cluster nb : ',index,'',end_cluster - start_time)
 
         #
+        #pick.stepCenter()
         pick.station()
         print(pick.pop_ameliori)
-        pick.visualisation(pick.setupVisualisation(),pick.setupClient())
+        pick.visualisation(pick.setupVisualisation(),pick.setupClient(),pick.stepCenter())
         #
         return render_template('rslt.html',best_sol = pick.pop_ameliori,best_cout= pick.couts)
     else:
@@ -91,7 +92,7 @@ def addClient():
 
         #
         pick.station()
-        pick.visualisation(pick.setupVisualisation(),pick.setupClient())
+        pick.visualisation(pick.setupVisualisation(),pick.setupClient(),pick.stepCenter())
         # [print('pop len',len(x)) for x in pick.pop_ameliori]
         [print('Station', x[-1]) for x in pick.pop_ameliori]
         #

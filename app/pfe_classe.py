@@ -686,7 +686,7 @@ class pickup :
     #df = pd.DataFrame(data)
     #data = df.dropna()
     #list(zip(data['Latitude'],data['Longitude'],data['Stations ']))
-    sh = [(x[0],x[1],'gray','glyphicon glyphicon-pushpin')for x in list(zip(data['Latitude'],data['Longitude']))]
+    sh = [(x[0],x[1],'gray','glyphicon glyphicon-pushpin','Station De :'+str(x[2]))for x in list(zip(data['Latitude'],data['Longitude'],data['Stations ']))]
     return sh
 
   def tokanization(self):
@@ -744,7 +744,7 @@ class pickup :
       popCrd = []
       station = self.stationSchow()
       for index, cluster in enumerate(self.pop_ameliori):
-          popCrd += [(self.coordonne[x][0], self.coordonne[x][1], colors[index], index) for x in cluster if
+          popCrd += [(self.coordonne[x][0], self.coordonne[x][1], colors[index], '','client nb :'+str(x)) for x in cluster if
                      isinstance(x, int) == True]
       #print(popCrd)
       #print(station)
@@ -760,7 +760,16 @@ class pickup :
       #
       return popCli
   #
-  def visualisation(self,popCrd,popCli):
+  def stepCenter(self):
+      colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'beige', 'darkblue', 'darkgreen',
+                'cadetblue', 'darkpurple', 'white', 'pink', 'lightblue', 'lightgreen', 'black', 'lightgray']
+      rslt = []
+      for index,center in enumerate(self.Center):
+          cntr = [self.D[center][x] for x in self.Clustering[index]]
+          rslt.append((self.coordonne[center],sorted(cntr)[-1],colors[index]))
+      return rslt
+  #
+  def visualisation(self,popCrd,popCli,popCntr):
       #
       map = folium.Map(location=[36.748161, 3.2935],
                        zoom_start=3, control_scale=True)
@@ -771,7 +780,7 @@ class pickup :
       #
       for index, coord in enumerate(popCrd):
           #
-          iframe = folium.IFrame('the cluster nb')
+          iframe = folium.IFrame(coord[4])
           #
           popup = folium.Popup(iframe, min_width=300, max_width=300)
           #
@@ -783,8 +792,14 @@ class pickup :
                         popup=popup,
                         icon=folium.Icon(color=icon_color, icon=coord[3])).add_to(map)
           #
+      #
       for crd in popCli:
           folium.PolyLine(crd, tooltip="Coast").add_to(map)
+      #
+      for index,cntr in enumerate(popCntr) :
+          p = 'Center '+str(index)
+          folium.Marker(location=cntr[0], popup=p).add_to(map)
+          folium.CircleMarker(location=cntr[0], radius=100, fill_color=cntr[2]).add_to(map)
       #
       map.save('../amiraTafsoutPickup/templates/cluster.html')
   #
