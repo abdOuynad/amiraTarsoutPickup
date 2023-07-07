@@ -28,8 +28,9 @@ class pickup :
     self.Center = None
     self.vehicule_matrix = []
     self.pop = []
+    self.couts = []
     self.pop_ameliori = []
-  #
+  #s
   def produit(self,W):
     D = self.D_copy
     L = [0] * len(D)
@@ -531,6 +532,7 @@ class pickup :
         coutbest=self.Cout2 (D,best)
     end_time = time.time()
     execution_time = end_time - start_time
+    self.couts.append(coutbest)
     self.pop_ameliori.append(best)
     #return best
   #
@@ -742,7 +744,7 @@ class pickup :
       popCrd = []
       station = self.stationSchow()
       for index, cluster in enumerate(self.pop_ameliori):
-          popCrd += [(self.coordonne[x][0], self.coordonne[x][1], colors[index], '') for x in cluster if
+          popCrd += [(self.coordonne[x][0], self.coordonne[x][1], colors[index], index) for x in cluster if
                      isinstance(x, int) == True]
       #print(popCrd)
       #print(station)
@@ -750,7 +752,15 @@ class pickup :
       #print(popCrd)
       return popCrd
   #
-  def visualisation(self,popCrd):
+  def setupClient(self):
+      popCli = []
+      for index, cluster in enumerate(self.pop_ameliori):
+          pop = [(self.coordonne[x][0], self.coordonne[x][1]) for x in cluster if isinstance(x, int) == True]
+          popCli.append(pop)
+      #
+      return popCli
+  #
+  def visualisation(self,popCrd,popCli):
       #
       map = folium.Map(location=[36.748161, 3.2935],
                        zoom_start=3, control_scale=True)
@@ -773,6 +783,9 @@ class pickup :
                         popup=popup,
                         icon=folium.Icon(color=icon_color, icon=coord[3])).add_to(map)
           #
+      for crd in popCli:
+          folium.PolyLine(crd, tooltip="Coast").add_to(map)
+      #
       map.save('../amiraTafsoutPickup/templates/cluster.html')
   #
 

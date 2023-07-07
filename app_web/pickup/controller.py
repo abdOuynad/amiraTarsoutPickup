@@ -22,7 +22,7 @@ def index():
     if request.method == 'POST':
         #
         vehicule = int(request.form['v'])
-        cout = request.form['c']
+        #cout = request.form['c']
         #
         path = '../amiraTafsoutPickup/templates/cluster.html'
         if (os.path.exists(path)):
@@ -53,9 +53,9 @@ def index():
         #
         pick.station()
         print(pick.pop_ameliori)
-        pick.visualisation(pick.setupVisualisation())
+        pick.visualisation(pick.setupVisualisation(),pick.setupClient())
         #
-        return render_template('rslt.html',best_sol = pick.pop_ameliori)
+        return render_template('rslt.html',best_sol = pick.pop_ameliori,best_cout= pick.couts)
     else:
         return render_template('index.html')
 #
@@ -74,6 +74,7 @@ def addClient():
         pick.dynamiClient()
         pick.pop_ameliori = []
         pick.vehicule_matrix = []
+        pick.couts = []
         # pick.Clustering = [x[2:]for x in pick.Clustering]
         # with
         # [print('clustering len',len(x)) for x in pick.Clustering]
@@ -90,11 +91,11 @@ def addClient():
 
         #
         pick.station()
-        pick.visualisation(pick.setupVisualisation())
+        pick.visualisation(pick.setupVisualisation(),pick.setupClient())
         # [print('pop len',len(x)) for x in pick.pop_ameliori]
         [print('Station', x[-1]) for x in pick.pop_ameliori]
         #
-        return render_template('rsltPlus.html',best_sol = pick.pop_ameliori)
+        return render_template('rsltPlus.html',best_sol = pick.pop_ameliori,best_cout = pick.couts)
     #
     return render_template('index.html')
     #
